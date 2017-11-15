@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import reactor.core.publisher.Flux;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +19,7 @@ import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @WebFluxTest(RestaurantController.class)
+@AutoConfigureWebClient // TODO: we should probably move the client stuff to a separate service in the "real" repo
 public class RestaurantControllerTests {
 
 	@Autowired
