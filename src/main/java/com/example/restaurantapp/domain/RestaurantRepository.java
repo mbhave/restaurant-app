@@ -2,13 +2,11 @@ package com.example.restaurantapp.domain;
 
 import reactor.core.publisher.Flux;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-@Component
-public class RestaurantRepository {
+public interface RestaurantRepository extends ReactiveCrudRepository<Restaurant, String> {
 
-	public Flux<Restaurant> findAll() {
-		return Flux.empty();
-	}
+	Flux<Restaurant> findByCategoryAndPricePerPersonLessThan(String category,
+			Double maxPrice);
 
 }

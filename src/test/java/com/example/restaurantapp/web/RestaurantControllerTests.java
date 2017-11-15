@@ -28,7 +28,8 @@ public class RestaurantControllerTests {
 
 	@Test
 	public void findCheapSushiPlaces() {
-		given(repository.findAll()).willReturn(sampleRestaurants());
+		given(repository.findByCategoryAndPricePerPersonLessThan("sushi", 40.00))
+				.willReturn(sampleRestaurants());
 		this.webTestClient.get()
 				.uri("/restaurants?category={c}&maxPrice={s}", "sushi", 40.00)
 				.exchange()
@@ -40,10 +41,7 @@ public class RestaurantControllerTests {
 
 	private static Flux<Restaurant> sampleRestaurants() {
 		return Flux.fromIterable(Set.of(
-				new Restaurant("Sushi2Go", 35.00, "sushi"),
-				new Restaurant("Sushi Heaven", 75.00, "sushi"),
-				new Restaurant("Veggie place", 32.00, "vegan"),
-				new Restaurant("Whatever", 42.00, "foo")
+				new Restaurant("Sushi2Go", 35.00, "sushi")
 		));
 	}
 
