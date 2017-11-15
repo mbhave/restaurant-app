@@ -1,7 +1,5 @@
 package com.example.restaurantapp.web;
 
-import java.util.Set;
-
 import com.example.restaurantapp.domain.Restaurant;
 import com.example.restaurantapp.domain.RestaurantRepository;
 import org.junit.Test;
@@ -28,7 +26,8 @@ public class RestaurantControllerTests {
 
 	@Test
 	public void findCheapSushiPlaces() {
-		given(repository.findAll()).willReturn(sampleRestaurants());
+		given(repository.findByCategoryAndPricePerPersonLessThan("sushi", 20.00))
+				.willReturn(Flux.just(new Restaurant("Sushi2Go", 35.00, "sushi")));
 		this.webTestClient.get()
 				.uri("/restaurants?category={c}&maxPrice={s}", "sushi", 20.00)
 				.exchange()
@@ -36,16 +35,6 @@ public class RestaurantControllerTests {
 				.expectBody()
 				.jsonPath("$[0].name").isEqualTo("Sushi2Go")
 				.jsonPath("$.length()", 1);
-	}
-
-	private static Flux<Restaurant> sampleRestaurants() {
-		return Flux.fromIterable(Set.of(
-				new Restaurant("Sushi2Go", 15.00, "sushi"),
-				new Restaurant("Burger Spring", 11.00, "fast-food"),
-				new Restaurant("DoMONOs", 10.00, "fast-food"),
-				new Restaurant("Cheesecake ProxyFactory", 9.50, "pastry"),
-				new Restaurant("Sushi Heaven", 75.00, "sushi")
-		));
 	}
 
 }
