@@ -20,9 +20,7 @@ public class RestaurantController {
 	@GetMapping("/restaurants")
 	public Flux<Restaurant> getByCategoryAndPrice(@RequestParam String category,
 			@RequestParam Double maxPrice) {
-		return this.repository.findAll()
-				.filter(restaurant -> category.equals(restaurant.getCategory()))
-				.filter(restaurant -> restaurant.getPricePerPerson() < maxPrice);
+		return this.repository.findByCategoryAndPricePerPersonLessThan(category, maxPrice);
 	}
 
 }
