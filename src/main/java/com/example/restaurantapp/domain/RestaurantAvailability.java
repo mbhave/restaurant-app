@@ -4,6 +4,7 @@ import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestaurantAvailability {
@@ -15,7 +16,9 @@ public class RestaurantAvailability {
 	private final URI confirmationUri;
 
 	@JsonCreator
-	public RestaurantAvailability(String name, boolean available, URI confirmationUri) {
+	public RestaurantAvailability(@JsonProperty("name") String name,
+			@JsonProperty("available") boolean available,
+			@JsonProperty("confirmationUri") URI confirmationUri) {
 		this.name = name;
 		this.available = available;
 		this.confirmationUri = confirmationUri;
